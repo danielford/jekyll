@@ -61,6 +61,7 @@ module Jekyll
     'plugins'      => File.join(Dir.pwd, '_plugins'),
 
     'future'       => true,
+    'unpublished'  => false,
     'lsi'          => false,
     'pygments'     => false,
     'markdown'     => 'maruku',

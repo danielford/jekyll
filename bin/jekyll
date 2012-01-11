@@ -99,6 +99,10 @@ opts = OptionParser.new do |opts|
     options['future'] = future
   end
 
+  opts.on("--[no-]unpublished", "Render unpublished posts") do |unpublished|
+    options['unpublished'] = unpublished
+  end
+
   opts.on("--permalink [TYPE]", "Use 'date' (default) for YYYY/MM/DD") do |style|
     options['permalink'] = style unless style.nil?
   end

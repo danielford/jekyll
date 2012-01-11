@@ -5,7 +5,8 @@ module Jekyll
   class Site
     attr_accessor :config, :layouts, :posts, :pages, :static_files,
                   :categories, :exclude, :source, :dest, :lsi, :pygments,
-                  :permalink_style, :tags, :time, :future, :safe, :plugins, :limit_posts
+                  :permalink_style, :tags, :time, :future, :safe, :plugins,
+                  :limit_posts, :unpublished
 
     attr_accessor :converters, :generators
 
@@ -24,6 +25,7 @@ module Jekyll
       self.permalink_style = config['permalink'].to_sym
       self.exclude         = config['exclude'] || []
       self.future          = config['future']
+      self.unpublished     = config['unpublished']
       self.limit_posts     = config['limit_posts'] || nil
 
       self.reset
@@ -162,7 +164,7 @@ module Jekyll
         if Post.valid?(f)
           post = Post.new(self, self.source, dir, f)
 
-          if post.published && (self.future || post.date <= self.time)
+          if (post.published || self.unpublished) && (self.future || post.date <= self.time)
             self.posts << post
             post.categories.each { |c| self.categories[c] << post }
             post.tags.each { |c| self.tags[c] << post }

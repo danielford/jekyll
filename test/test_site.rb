@@ -181,6 +181,16 @@ class TestSite < Test::Unit::TestCase
         end
       end
     end
+
+    context 'with unpublished == true' do
+      should 'include unpublished posts' do
+        @site.unpublished = true
+
+        @site.read_posts('')
+        posts = Dir[source_dir('_posts', '*')]
+        assert_equal posts.size, @site.posts.size
+      end
+    end
     
   end
 end
